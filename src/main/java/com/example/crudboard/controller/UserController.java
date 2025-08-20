@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;  // RESTful API 관련 어노�
 @Getter
 @Setter
 class UserRequestDto {
-    private String user_name;
+    private String userName;
     private String password;
     private String nickname;
 }
@@ -25,13 +25,13 @@ class UserRequestDto {
 @Setter
 @RequiredArgsConstructor
 class UserResponseDto {
-    private final Long user_id;
-    private final String user_name;
+    private final Long userId;
+    private final String userName;
     private final String nickname;
 
     public UserResponseDto(User user){
-        this.user_id = user.getUserId();
-        this.user_name = user.getUserName();
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
         this.nickname = user.getNickname();
     }
 }
@@ -52,7 +52,7 @@ public class UserController {
     @PostMapping("/signup")  // (/api/users/signup) 경로로 들어오는 요청을 처리한다.
     public ResponseEntity<UserResponseDto> signUp(@RequestBody UserRequestDto requestDto) {
         try {
-            User newUser = userService.signUp(requestDto.getUser_name(), requestDto.getPassword(), requestDto.getNickname());
+            User newUser = userService.signUp(requestDto.getUserName(), requestDto.getPassword(), requestDto.getNickname());
             // 회원가입 성공 시 201 Created 상태 코드와 함께 UserResponseDto 반환
             return new ResponseEntity<>(new UserResponseDto(newUser), HttpStatus.CREATED);
         } catch (IllegalArgumentException e){
@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("/login")  // (/api/users/login) 경로로 들어오는 요청을 처리한다.
     public ResponseEntity<UserResponseDto> login(@RequestBody UserRequestDto requestDto){
         try {
-            User loggedInuser = userService.login(requestDto.getUser_name(), requestDto.getPassword());
+            User loggedInuser = userService.login(requestDto.getUserName(), requestDto.getPassword());
             // 로그인 성공 시 200 OK 상태 코드와 함께 UserResponseDto 반환
             return new ResponseEntity<>(new UserResponseDto(loggedInuser), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
