@@ -30,8 +30,8 @@ class UserResponseDto {
     private final String nickname;
 
     public UserResponseDto(User user){
-        this.user_id = user.getUser_id();
-        this.user_name = user.getUser_name();
+        this.user_id = user.getUserId();
+        this.user_name = user.getUserName();
         this.nickname = user.getNickname();
     }
 }

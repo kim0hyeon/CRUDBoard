@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long post_id;
+    @Column(name = "post_id")
+    private Long postId;
 
     // 자바에선 외래키가 필요할 땐, 외래키 값만 아니라 객체 전체를 불러와서 사용
     // JPA의 핵심적인 장점이자 객체 지향적인 접근 방식
@@ -35,39 +36,39 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(length=100)
-    private String image_url;
+    @Column(name = "image_url", length=100)
+    private String imageUrl;
 
-    @Column(nullable = false)
-    private int like_count;
+    @Column(name = "like_count", nullable = false)
+    private int likeCount;
 
-    @Column(nullable = false)
-    private int hate_count;
+    @Column(name = "hate_count", nullable = false)
+    private int hateCount;
 
-    @Column(nullable = false)
-    private int view_count;
+    @Column(name = "view_count", nullable = false)
+    private int viewCount;
 
-    @Column(nullable = false)
-    private boolean is_dangerous;
+    @Column(name = "is_dangerous", nullable = false)
+    private boolean isDangerous;
 
-    @Column(nullable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updated_at;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     public Post(Board board, User user, String title, String content, String image_url){
         this.board = board;
         this.user = user;
         this.title = title;
         this.content = content;
-        this.image_url = image_url;
-        this.like_count = 0;
-        this.hate_count = 0;
-        this.view_count = 0;
-        this.is_dangerous = false;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.imageUrl = image_url;
+        this.likeCount = 0;
+        this.hateCount = 0;
+        this.viewCount = 0;
+        this.isDangerous = false;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Post(Board board, User user, String title, String content){
@@ -75,56 +76,56 @@ public class Post {
         this.user = user;
         this.title = title;
         this.content = content;
-        this.like_count = 0;
-        this.hate_count = 0;
-        this.view_count = 0;
-        this.is_dangerous = false;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.likeCount = 0;
+        this.hateCount = 0;
+        this.viewCount = 0;
+        this.isDangerous = false;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     // Post를 업데이트 할 때 사용할 메서드
     public void updatePost(String new_title, String new_content, String new_image_url){
         this.title = new_title;
         this.content = new_content;
-        this.image_url = new_image_url;
-        this.updated_at = LocalDateTime.now(); // 수정 시간 업데이트
+        this.imageUrl = new_image_url;
+        this.updatedAt = LocalDateTime.now(); // 수정 시간 업데이트
     }
 
     // 변경할 이미지가 없을 때 Post 업데이트
     public void updatePost(String new_title, String new_content){
         this.title = new_title;
         this.content = new_content;
-        this.updated_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void addLike(){
-        this.like_count++;
+        this.likeCount++;
     }
 
     // Like를 눌렀던 사용자만 가능하게끔 Service에서 메서드 설정 필요
     public void removeLike(){
-        this.like_count--;
+        this.likeCount--;
     }
 
     public void incrementViewCount(){
-        this.view_count++;
+        this.viewCount++;
     }
 
     public void addHate(){
-        this.hate_count++;
+        this.hateCount++;
 
-        if (this.hate_count >= 10){
-            this.is_dangerous = true;
+        if (this.hateCount >= 10){
+            this.isDangerous = true;
         }
     }
 
     // Hate를 눌렀던 사용자만 가능하게끔 Service에서 메서드 설정 필요
     public void removeHate(){
-        this.hate_count--;
+        this.hateCount--;
 
-        if (this.hate_count < 10){
-            this.is_dangerous = false;
+        if (this.hateCount < 10){
+            this.isDangerous = false;
         }
     }
 }

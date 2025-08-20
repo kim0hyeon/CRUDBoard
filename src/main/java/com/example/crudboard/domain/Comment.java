@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    @Column(name = "comment_id")
+    private Long commentId;
 
     // 여러 comment은 하나의 post에 속함
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,46 +29,46 @@ public class Comment {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false)
-    private int like_count;
+    @Column(name = "like_count", nullable = false)
+    private int likeCount;
 
-    @Column(nullable = false)
-    private int hate_count;
+    @Column(name = "hate_count", nullable = false)
+    private int hateCount;
 
-    @Column(nullable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updated_at;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     public Comment(Post post, User user, String content){
         this.post = post;
         this.user = user;
         this.content = content;
-        this.like_count = 0;
-        this.hate_count = 0;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.likeCount = 0;
+        this.hateCount = 0;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void addLike(){
-        this.like_count++;
+        this.likeCount++;
     }
 
     public void removeLike(){
-        this.like_count--;
+        this.likeCount--;
     }
 
     public void addHate(){
-        this.hate_count++;
+        this.hateCount++;
     }
 
     public void removeHate(){
-        this.hate_count--;
+        this.hateCount--;
     }
 
     public void updateComment(String new_content){
         this.content = new_content;
-        this.updated_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }

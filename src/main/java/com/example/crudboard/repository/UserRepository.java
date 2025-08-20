@@ -9,7 +9,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // 사용자 이름(user_name)으로 User 엔티티를 찾는 메서드를 정의합니다.
     // 로그인 기능 구현 시 사용됩니다.
-    Optional<User> findByUsername(String user_name);
+    Optional<User> findByUserName(String userName);
 
     // 닉네임으로 User 엔티티를 찾는 메서드 정의
     // 회원가입 시 닉네임 중복 확인에 사용

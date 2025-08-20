@@ -16,10 +16,11 @@ import java.time.LocalDateTime;  // 날짜와 시간을 다루는 자바의 표�
 public class User {
     @Id  // 기본 키임을 알리는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // userId의 값이 DB에서 자동으로 1씩 증가하며 생성되도록 설정, AUTO_INCREMENT와 같은 역할
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @Column(nullable = false, unique = true, length = 20)
-    private String user_name;
+    @Column(name = "user_name", nullable = false, unique = true, length = 20)
+    private String userName;
 
     @Column(nullable = false, length = 100)
     private String password;
@@ -27,19 +28,19 @@ public class User {
     @Column(nullable = false, unique = true, length = 20)
     private String nickname;
 
-    @Column(nullable = false)  // Default값은 DB에서 설정
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = false)  // Default값은 DB에서 설정
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)  // Default값은 DB에서 설정
-    private boolean is_dangerous;
+    @Column(name = "is_dangerous", nullable = false)  // Default값은 DB에서 설정
+    private boolean isDangerous;
 
     // 기본 생성자
     public User(String user_name, String password, String nickname){
-        this.user_name = user_name;
+        this.userName = user_name;
         this.password = password;
         this.nickname = nickname;
-        this.created_at = LocalDateTime.now();
-        this.is_dangerous = false;
+        this.createdAt = LocalDateTime.now();
+        this.isDangerous = false;
     }
 
     // 비밀번호 업데이트 메서드
@@ -49,7 +50,7 @@ public class User {
 
     // 일반사용자 -> 위험사용자, 위험사용자 -> 일반사용자 변환 메서드
     public void setDangerous(boolean dangerous){
-        this.is_dangerous = dangerous;
+        this.isDangerous = dangerous;
     }
 }
 

@@ -34,7 +34,7 @@ public class UserService {
     @Transactional
     public User signUp(String user_name, String password, String nickname){
         // 1. 사용자 이름 중복 확인
-        if (userRepository.findByUsername(user_name).isPresent()) {
+        if (userRepository.findByUserName(user_name).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 사용자 ID입니다.");
         }
         // 2. 사용자 닉네임 중복 확인
@@ -60,7 +60,7 @@ public class UserService {
     @Transactional // 읽기 작업이지만, 경우에 따라 User 엔티티의 생태 변경(ex: 최근 로그인 일시)이 있을 수 있으므로 @Transactional 유지
     public User login(String user_name, String password){
         // 1. 사용자 ID로 user 조회
-        User user = userRepository.findByUsername(user_name).orElseThrow(() -> new IllegalArgumentException("없는 사용자이거나 비밀번호가 틀렸습니다."));
+        User user = userRepository.findByUserName(user_name).orElseThrow(() -> new IllegalArgumentException("없는 사용자이거나 비밀번호가 틀렸습니다."));
 
         // 2. 비밀번호 일치 여부 확인
         // 입력된 비밀번호와 암호화된 저장된 비밀번호 비교

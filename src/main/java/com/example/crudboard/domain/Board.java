@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long board_id;
+    @Column(name = "board_id")
+    private Long boardId;
 
-    @Column(nullable = false, unique = true, length=30)
-    private String board_name;
+    @Column(name = "board_name", nullable = false, unique = true, length=30)
+    private String boardName;
 }
