@@ -23,7 +23,8 @@ public class WebSecurityConfig {
                                 "/api/boards/**",  // api/boards 및 그 하위 모든 경로 허용
                                 "/api/posts",  // 모든 게시글 목록 조회 및 허용
                                 "/api/posts/search",  // 게시글 검색 허용
-                                "/api/posts/{postId}"  // 특정 게시글 조회 허용
+                                "/api/posts/{postId}",  // 특정 게시글 조회 허용
+                                "api/comments/**"
                         ).permitAll()
                         // 그 외 모든 요청은 인증된 사용자만 접근을 허용한다.
                         .anyRequest().authenticated()
@@ -31,3 +32,5 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
+
+// 추후 PUT(수정), DELETE(삭제) API는 인증된 사용자만 접근할 수 있도록 설정 필요 - 현재는 기능 테스트 중으로 모두 허용
