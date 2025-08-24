@@ -17,7 +17,14 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())  // CSRF 보호를 비활성화 (REST API에서는 일반적으로 토큰 기반 인증을 사용하므로 비활성화)
                 .authorizeHttpRequests(auth -> auth
                         // 회원가입 및 로그인 API는 인증 없이도 접근을 허용한다.
-                        .requestMatchers("/api/users/signup", "/api/users/login").permitAll()
+                        .requestMatchers(
+                                "/api/users/signup",  // 회원가입 경로 허용
+                                "/api/users/login",  // 로그인 경로 허용
+                                "/api/boards/**",  // api/boards 및 그 하위 모든 경로 허용
+                                "/api/posts",  // 모든 게시글 목록 조회 및 허용
+                                "/api/posts/search",  // 게시글 검색 허용
+                                "/api/posts/{postId}"  // 특정 게시글 조회 허용
+                        ).permitAll()
                         // 그 외 모든 요청은 인증된 사용자만 접근을 허용한다.
                         .anyRequest().authenticated()
                 );
